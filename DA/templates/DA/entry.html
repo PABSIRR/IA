@@ -1,0 +1,47 @@
+{% extends "DA/base.html" %}
+
+{% block header %} 
+    <div style="display:flex;justify-content:space-between">
+        <h1 style="display:inline-block;">{{ entry }}</h1>
+        <h1 class="text-right" style="display:inline-block "><a href= "{% url 'DA:entries' %}">Back</a></h1>
+    </div>
+    <div style="display:flex;justify-content: space-between;">
+        <h1 style="display:inline-block;font-size:medium"><a href="{% url 'DA:entry_data' entry.id %}">View Specific Data</a></h1>
+        <h1 style="display:inline-block;font-size:medium"><a href="{% url 'DA:graph' entry.id %}">View Graphs</a></h1>
+    </div>
+{% endblock header %}
+{% block content %}
+
+    <p>Entries:</p>
+    <p><a href="{% url 'DA:new_data' entry.id %}">Add a new entry</a></p>
+
+    {% for d in data %}
+        <div class="panel panel-default"> 
+            <div class="panel-heading">
+                <h3>
+                    <strong>{{ d.month }}</strong> - <strong>{{ d.day }}</strong> - <strong>{{ d.year }}</strong>
+                    <strong>|</strong>
+                    <strong>{{d.start}}</strong> - <strong>{{ d.end }}</strong>
+                    <strong>|</strong>
+                    <strong></strong>
+                    <strong>|</strong>
+                    <small >
+                        <a href="{% url 'DA:edit_data' d.id %}">Edit Entry</a>
+                    </small>
+                    <strong>|</strong>
+                    <small >
+                        <a href="{% url 'DA:delete_data' d.id %}">Delete Entry</a>
+                    </small>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <strong>Thoughts:</strong>{{ d.text|linebreaks }}
+            </div>
+            <div class="panel-body">
+                <small><strong>Actual date added: </strong>{{ d.date_added|date:'M d, Y H:i' }}</small>
+            </div>
+        </div><!-- panel -->
+    {% empty %}
+        There are no entries yet.
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "DA/base.html" %}
+{% load bootstrap3 %} 
+
+{% block header %}
+    <h2>View Data</h2>
+{% endblock header %}
+
+{% block content %} 
+    <form action="{% url 'DA:entry_data' e_id %}" method='post' class="form">
+        {% csrf_token %} 
+        {% bootstrap_form form %}
+
+        {% buttons %} 
+            <button name="submit" class="btn btn-primary">View Data</button>
+        {% endbuttons %}      
+    </form>
+    {% for d,m,y,s,e,t,da in days %} 
+        <div class="panel panel-default"> 
+            <div class="panel-heading">
+                <h3>
+                    <strong>{{ m }}</strong> - <strong>{{ d }}</strong> - <strong>{{ y }}</strong>
+                    <strong>|</strong>
+                    <strong>{{ s }}</strong> - <strong>{{ e }}</strong>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <strong>Thoughts:</strong>{{ t|linebreaks }}
+            </div>
+            <div class="panel-body">
+                <small><strong>Actual date added: </strong>{{ da|date:'M d, Y H:i' }}</small>
+            </div>
+        </div><!-- panel -->
+    {% empty %}
+        No entries match your request.
+    {% endfor %}
+    
+{% endblock content %}

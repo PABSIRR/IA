@@ -1,0 +1,11 @@
+{% extends "DA/base.html" %} 
+
+{% block content %} 
+    
+    <p>Do you wish to delete this datapoint? </p>
+    <form action="{% url 'DA:delete_data' data.id %}" method='post'>
+        {% csrf_token %} 
+        {{ form.as_p }}
+        <button name="submit">Delete Entry</button>
+    </form>
+{% endblock content %}

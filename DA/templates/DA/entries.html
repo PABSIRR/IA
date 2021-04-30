@@ -1,0 +1,24 @@
+{% extends 'DA/base.html' %} 
+
+{% block header %} 
+    <h1>Entries</h1>
+{% endblock header %}
+
+{% block content %} 
+    <p>Entries</p>
+    <ul>
+        {% for entry in entries %} 
+            <li>
+                <h3>
+                    <p>{{ entry }} - {{ entry.date_added|date:'M d, Y H:i' }}</p>
+                    <a href="{% url 'DA:entry' entry.id %}">{{ entry }}</a>
+                </h3>
+            </li>
+        {% empty %} 
+            <li>No entries have been recorded</li>
+        {% endfor %}
+    </ul>
+
+
+    <h3><a href="{% url 'DA:new_entry' %}">Add entry</a></h3>
+{% endblock content %}

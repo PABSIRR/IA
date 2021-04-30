@@ -1,0 +1,12 @@
+{% extends "DA/base.html" %} 
+
+{% block content %} 
+    <p><a href="{% url 'DA:entry' entry.id %}">{{ entry }}</a></p>
+
+    <p>Edit entry: </p>
+    <form action="{% url 'DA:edit_data' data.id%}" method='post'>
+        {% csrf_token %} 
+        {{ form.as_p }}
+        <button name="submit">Edit Entry</button>
+    </form>
+{% endblock content %}
