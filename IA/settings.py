@@ -63,7 +63,7 @@ ROOT_URLCONF = 'IA.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'IA/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
