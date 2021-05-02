@@ -38,4 +38,4 @@ def register(request):
             #send_mail( subject, message, email_from, recipient_list,fail_silently=False )
             return HttpResponseRedirect(reverse('DA:index'))
     context = {'form': form}
-    return render(request, 'users/register.html', context)
+    return render(request, 'Users/register.html', context)
