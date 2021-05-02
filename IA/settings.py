@@ -164,7 +164,8 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['ia-time-noter.herokuapp.com']
+    DEBUG = False
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'staticfiles'
