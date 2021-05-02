@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect , Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -39,7 +39,7 @@ def entries(request):
 # View entry
 @login_required
 def entry(request, entry_id):
-    entry = Entry.objects.get(id=entry_id)
+    entry = get_object_or_404(Entry, id=entry_id)
     if not check_data_owner(request, entry):
         raise Http404
     data = entry.info_set.order_by('-date_added')
