@@ -1,0 +1,24 @@
+"""
+    if request.method!='POST':
+        form = YearForm()
+    else:
+        form = DataForm(data=request.POST)
+        if form.is_valid():
+            days = []
+            d = form.cleaned_data['year_view']
+            bob = d
+            print(d)
+            filter_data = entry.info_set.filter(year=d)
+    """
+
+"""
+all_objects = Info.objects.all()
+years = []
+for obj in all_objects:
+    years.append(obj.year)
+Year_Choices = [(year, year) for year in years]
+Year_Choices_FR = list(set(Year_Choices))
+
+class YearForm(forms.Form):
+    year_view = forms.CharField(label='How many days of data to view?', widget = forms.Select(choices=Year_Choices_FR))
+"""

@@ -33,13 +33,3 @@ Delete_Choices = [
 ]
 class DeleteForm(forms.Form):
     del_choice = forms.ChoiceField(choices=Delete_Choices, widget=forms.RadioSelect)
-
-all_objects = Info.objects.all()
-years = []
-for obj in all_objects:
-    years.append(obj.year)
-Year_Choices = [(year, year) for year in years]
-Year_Choices_FR = list(set(Year_Choices))
-
-class YearForm(forms.Form):
-    year_view = forms.CharField(label='How many days of data to view?', widget = forms.Select(choices=Year_Choices_FR))

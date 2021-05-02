@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 #from .models import Topic, Entry
 #from .forms import TopicForm, EntryForm
 from .models import Info, Entry
-from .forms import InfoForm, DataForm , EntryForm, DeleteForm, YearForm
+from .forms import InfoForm, DataForm , EntryForm, DeleteForm
 from .datav import graph
 
 from datetime import datetime, timedelta
@@ -204,18 +204,6 @@ def graph(request, entry_id):
             month_list.append(c.month)
             year_list.append(c.year)
             da.append(c.date_added)
-    """
-    if request.method!='POST':
-        form = YearForm()
-    else:
-        form = DataForm(data=request.POST)
-        if form.is_valid():
-            days = []
-            d = form.cleaned_data['year_view']
-            bob = d
-            print(d)
-            filter_data = entry.info_set.filter(year=d)
-    """
     year_graph_scatter = scatter_year_amount(year_list)
     scatter_ma= scatter_month_amount(month_list, day_list)
     scatter_mac = scatter_month_amount_color(month_list,day_list)

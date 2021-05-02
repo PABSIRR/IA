@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$u!05%87k(^-#$*155^!+c51o=uc)=*u0rf)+x_^q%*xrtfz+i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -139,6 +139,7 @@ LOGIN_URL = '/users/login'
 LOGOUT_REDIRECT_URL = '/users/login'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 TIME_INPUT_FORMATS = ('%H:%M',)
 
