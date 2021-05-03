@@ -125,7 +125,7 @@ def view_all_data(request):
     context = {'form':form}
     if(len(bob)):
         if(bob =="day"):
-            context['days'] = checker(days, 1)
+            context['days'] = checker(days, 1.1)
         elif(bob =="year"):
             context['days'] = checker(days, 365)
         elif(bob=="week"):

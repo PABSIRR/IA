@@ -2,7 +2,10 @@
 {% load bootstrap3 %} 
 
 {% block header %}
-    <h2>View Data</h2>
+    <div style="display:flex;justify-content:space-between">
+        <h1 style="display:inline-block;">View Data</h1>
+        <h1 class="text-right" style="display:inline-block "><a href= "{% url 'DA:entries' %}">Back</a></h1>
+    </div>
 {% endblock header %}
 
 {% block content %} 
