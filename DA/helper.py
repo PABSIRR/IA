@@ -8,7 +8,7 @@ def checker(lister, days):
     bob = []
     for c in lister:
         date_obj = datetime(c[2], c[1], c[0])
-        if(abs((present-date_obj).days) < days):
+        if(abs((present-date_obj).days) <= days):
             bob.append(c)
     
     return bob
