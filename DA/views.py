@@ -146,12 +146,14 @@ def delete_data(request, data_id):
         #there is some data
         form = DeleteForm(data=request.POST)
         if form.is_valid():
-            d = form.cleaned_data['del_choice']
+            d = form.cleaned_data['delete_choice']
             if(d == 'yes'):
-                Info.objects.filter(id=data_id).delete()
+                bob = Info.objects.filter(id=data_id)
+                bob.delete()
             else:
                 pass
             return HttpResponseRedirect(reverse('DA:entries'))
+
     context = {'data':data,'form': form}
     return render(request, 'DA/delete_data.html', context)
 
