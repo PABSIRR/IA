@@ -6,6 +6,8 @@
     <form action="{% url 'DA:delete_data' data.id %}" method='post'>
         {% csrf_token %} 
         {{ form.as_p }}
-        <button name="submit">Delete Entry</button>
+        {% buttons %} 
+            <button name="submit" class="btn btn-primary">Delete Entry</button>
+        {% endbuttons %}   
     </form>
 {% endblock content %}

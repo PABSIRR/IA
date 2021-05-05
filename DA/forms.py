@@ -32,4 +32,4 @@ Delete_Choices = [
     ('no','no')
 ]
 class DeleteForm(forms.Form):
-    del_choice = forms.ChoiceField(choices=Delete_Choices, widget=forms.RadioSelect)
+    delete_choice = forms.ChoiceField(choices=Delete_Choices, widget=forms.RadioSelect)
