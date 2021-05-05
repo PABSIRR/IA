@@ -12,8 +12,8 @@
 {% endblock header %}
 {% block content %}
 
-    <p>Entries:</p>
-    <p><a href="{% url 'DA:new_data' entry.id %}">Add a new entry</a></p>
+    <p>Data:</p>
+    <p><a href="{% url 'DA:new_data' entry.id %}">Add new data</a></p>
 
     {% for d in data %}
         <div class="panel panel-default"> 
@@ -26,11 +26,11 @@
                     <strong></strong>
                     <strong>|</strong>
                     <small >
-                        <a href="{% url 'DA:edit_data' d.id %}">Edit Entry</a>
+                        <a href="{% url 'DA:edit_data' d.id %}">Edit Data</a>
                     </small>
                     <strong>|</strong>
                     <small >
-                        <a href="{% url 'DA:delete_data' d.id %}">Delete Entry</a>
+                        <a href="{% url 'DA:delete_data' d.id %}">Delete Data</a>
                     </small>
                 </h3>
             </div>
