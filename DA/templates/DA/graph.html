@@ -13,13 +13,23 @@
     <div style="width:1000;height:100">
         {{ graph|safe }}
     </div>
-    {% if graph2 %}
         <h1 style="text-align: center;">Amount of entries per month</h1>
+        <form action="{% url 'DA:graph' eid %}" method='post' class="form">
+            {% csrf_token %} 
+            {% bootstrap_form form %}
+    
+            {% buttons %} 
+                <button name="submit" class="btn btn-primary">Enter Year</button>
+            {% endbuttons %}      
+        </form>
+    {% if graph2 %}
         <div style="width:1000;height:100">
             {{ graph2|safe }}
         </div>
         <div style="width:1000;height:100">
             {{ graph3|safe }}
         </div>
+    {% else %} 
+        <p style="text-align: center;">There is no data for this year.</p>
     {% endif %}
 {% endblock content %}

@@ -7,11 +7,11 @@ from django.contrib.auth.decorators import login_required
 #from .models import Topic, Entry
 #from .forms import TopicForm, EntryForm
 from .models import Info, Entry
-from .forms import InfoForm, DataForm , EntryForm, DeleteForm
+from .forms import InfoForm, DataForm , EntryForm, DeleteForm, YearForm
 from .datav import graph
 
 from datetime import datetime, timedelta
-from .helper import checker, grapher, scatter_year_amount, scatter_month_amount, scatter_month_amount_color
+from .helper import checker, grapher, scatter_year_amount, scatter_month_amount, scatter_month_amount_color, hour_per_month
 import plotly
 
 # Create your views here.
@@ -194,19 +194,50 @@ def view_some_data(request, entry_id):
 @login_required
 def graph(request, entry_id):
     bob = ""
+    year = 2023
+    if request.method != 'POST':
+        form = YearForm()
+    else:
+        form = YearForm(data=request.POST)
+        if form.is_valid():
+            year = form.cleaned_data['year']
+            print(year)
+
     graph_div = plotly.offline.plot(grapher(), auto_open=False, output_type="div")
     entry = Entry.objects.get(id=entry_id)
     data = entry.info_set.order_by('-date_added')
     day_list, month_list, year_list, da = [] , [] , [] , []
+    hour = [0 for _ in range(12)]
+    sessions = [0 for _ in range(12)]
     for c in data:
         if(c.entry.owner == request.user):
-            day_list.append(c.day)
-            month_list.append(c.month)
             year_list.append(c.year)
+            if(c.year == int(year)):
+                day_list.append(c.day)
+                month_list.append(c.month)
+                start = 60 * c.start.hour + c.start.minute
+                end = 60 * c.end.hour + c.end.minute
+                hour[c.month] += int(end - start)
+                sessions[c.month] += 1
+            print(hour)
             da.append(c.date_added)
     year_graph_scatter = scatter_year_amount(year_list)
     scatter_ma= scatter_month_amount(month_list, day_list)
-    scatter_mac = scatter_month_amount_color(month_list,day_list)
-
-    context = {'eid':entry_id,'graph':year_graph_scatter,'graph2':scatter_ma, 'graph3':scatter_mac}
+    #scatter_mac = scatter_month_amount_color(month_list,day_list)
+    bar_hour = hour_per_month(month_list, hour, sessions)
+    context = {'eid':entry_id,'graph':year_graph_scatter,'graph2':scatter_ma, 'graph3':bar_hour, 'form':form}
     return render(request, 'DA/graph.html', context)
+
+def new_entry(request):
+    if request.method != 'POST':
+        form = EntryForm()
+    else:
+        #there is some data
+        form = EntryForm(data=request.POST)
+        if form.is_valid():
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
+            return HttpResponseRedirect(reverse('DA:entries'))
+    context = {'form': form}
+    return render(request, 'DA/new_entry.html', context)

@@ -1,19 +1,23 @@
 {% extends "DA/base.html" %}
 {% block header %} 
     <div class='jumbotron'>
-        <h1>IA Project 2021</h1>
+        <h1>IA Project 2023</h1>
     </div>
 {% endblock header %}
 {% block content %}
-    <p>Log entries and view data</p>
+    <p>Log activities and sessions</p>
 
-    <p>Very op, would recommend 10/10</p>
+    <p>View data as you please.</p>
+
+    <!--<p>Very op, would recommend 10/10</p> -->
 
     <h2>
         <a href="{% url 'users:register' %}">Register</a>
         an account.
     </h2>
     <h2>
-        Make entries
+        <a href="{% url 'DA:entries' %}">Create</a>
+        activities and enter sessions.
+
     </h2>
 {% endblock content %}

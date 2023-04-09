@@ -33,6 +33,7 @@ def scatter_year_amount(year_list):
     df = pd.DataFrame(coc, columns=['year', 'amount'])
     print(df)
     fig = px.bar(df, x='year', y='amount')
+    fig.update_layout(bargap=.75)
 
     return fig.to_html(full_html=False)
 
@@ -48,19 +49,22 @@ def scatter_month_amount(month_list, daY_list):
     for year,amount in bob.items():
         coc.append([year, amount])
     """
-    coc = []
-    for c in range(len(month_list)):
-        bob = [month_list[c], daY_list[c], 1]
-        if bob in coc:
-            t = coc.index(bob)
-            coc[t][2] += 1
-        else:
-            coc.append([month_list[c],daY_list[c],1])
-    df = pd.DataFrame(coc, columns=['month', 'day', 'amount'])
-    print(df)
-    fig = px.scatter(df, x='month', y='day', size='amount')
+    if(len(month_list) > 0):
+        coc = []
+        for c in range(len(month_list)):
+            bob = [month_list[c], daY_list[c], 1]
+            if bob in coc:
+                t = coc.index(bob)
+                coc[t][2] += 1
+            else:
+                coc.append([month_list[c],daY_list[c],1])
+        df = pd.DataFrame(coc, columns=['month', 'day', 'amount'])
+        print(df)
+        fig = px.scatter(df, x='month', y='day', size='amount')
 
-    return fig.to_html(full_html=False)
+        return fig.to_html(full_html=False)
+    else:
+        return None
 
 def scatter_month_amount_color(month_list, daY_list):
     """
@@ -74,16 +78,30 @@ def scatter_month_amount_color(month_list, daY_list):
     for year,amount in bob.items():
         coc.append([year, amount])
     """
+    if(len(month_list) > 0):
+        coc = []
+        for c in range(len(month_list)):
+            bob = [month_list[c], daY_list[c], 1]
+            if bob in coc:
+                t = coc.index(bob)
+                coc[t][2] += 1
+            else:
+                coc.append([month_list[c],daY_list[c],1])
+        df = pd.DataFrame(coc, columns=['month', 'day', 'amount'])
+        print(df)
+        fig = px.scatter(df, x='month', y='day', color='amount')
+        return fig.to_html(full_html=False)
+    else:
+        return None
+    
+def hour_per_month(month_list, hour_list,sessions):
     coc = []
-    for c in range(len(month_list)):
-        bob = [month_list[c], daY_list[c], 1]
-        if bob in coc:
-            t = coc.index(bob)
-            coc[t][2] += 1
-        else:
-            coc.append([month_list[c],daY_list[c],1])
-    df = pd.DataFrame(coc, columns=['month', 'day', 'amount'])
+    for i in range(12):
+        coc.append([i,hour_list[i],sessions[i]])
+    df = pd.DataFrame(coc, columns=['month', 'minutes','sessions'])
     print(df)
-    fig = px.scatter(df, x='month', y='day', color='amount')
+    fig = px.bar(df, x='month', y='minutes', color="sessions")
+    fig.update_layout(bargap=.75)
+    print("h'ah")
 
     return fig.to_html(full_html=False)

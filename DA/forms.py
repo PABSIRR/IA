@@ -1,6 +1,7 @@
 from django import forms
 
 from . models import Info, Entry
+import datetime
 
 class InfoForm(forms.ModelForm):
     start = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))
@@ -33,3 +34,9 @@ Delete_Choices = [
 ]
 class DeleteForm(forms.Form):
     del_choice = forms.ChoiceField(choices=Delete_Choices, widget=forms.RadioSelect)
+
+yd = []
+for y in range(1990,(datetime.datetime.now().year + 5)):
+    yd.append((y,y))
+class YearForm(forms.Form):
+    year = forms.ChoiceField(label='What year do you want to see data for?', choices=yd)
